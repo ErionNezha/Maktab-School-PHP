@@ -1,0 +1,24 @@
+PROVENANCE & LICENSE
+=====================
+
+Project: Maktab — School System (PHP)
+Showcased by: Erion Nezha (© 2026 All rights reserved)
+
+Source
+------
+This repository presents the project for educational and portfolio purposes.
+The complete, unmodified original source is preserved byte-identical under
+original/.
+
+Originality / authorship
+-----------------------
+The showcase/demo adaptation (web port) was created by Erion Nezha.
+No claim is made to authorship of the original third-party source beyond
+what is verifiable. The original files are kept untouched so their own
+authorship/licensing notices, where present, remain intact.
+
+License
+-------
+The web demo/showcase adaptation in this repository is released under the
+MIT License. See LICENSE (if included) for the full text. Third-party
+original files under original/ retain their own licenses/notices.
