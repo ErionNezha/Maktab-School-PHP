@@ -1,0 +1,97 @@
+<!-- Created by Erion Nezha — © 2026 All rights reserved -->
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maktab — Demo</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f4f6f9;color:#333}
+nav{background:#0d6efd;color:#fff;padding:0 16px;display:flex;align-items:center;flex-wrap:wrap;min-height:56px}
+nav .brand{font-weight:700;font-size:1.2rem;text-transform:uppercase;margin-right:auto;padding:12px 0}
+nav button{background:none;border:none;color:#fff;padding:14px 12px;font-size:.85rem;cursor:pointer;text-transform:uppercase}
+nav button:hover,nav button.active{background:#0a58ca}
+.wrap{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
+.hero{background:linear-gradient(135deg,#0d6efd,#6610f2);color:#fff;border-radius:14px;padding:36px 28px;margin-bottom:22px;text-align:center}
+.hero h1{font-size:1.8rem;margin-bottom:8px}
+.hero p{opacity:.9}
+.sec{display:none}.sec.active{display:block}
+.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:14px;box-shadow:0 2px 8px #0001}
+.card h3{color:#0d6efd;margin-bottom:8px}
+.card .meta{font-size:.78rem;color:#888;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px #0001}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid #eee;font-size:.9rem}
+th{background:#0d6efd;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.news{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px #0001}
+.news .body{padding:16px}.news h3{font-size:1rem;color:#0d6efd;margin-bottom:6px}.news p{font-size:.86rem;color:#555}
+.tag{display:inline-block;background:#e7f1ff;color:#0d6efd;font-size:.72rem;padding:3px 10px;border-radius:12px;margin-bottom:8px}
+.note{background:#e7f1ff;border:1px solid #b6d4fe;border-radius:8px;padding:10px 14px;font-size:.82rem;color:#084298;margin-bottom:16px}
+.login{max-width:380px;margin:30px auto;background:#fff;padding:28px;border-radius:12px;box-shadow:0 2px 12px #0002}
+.login h3{text-align:center;color:#0d6efd;margin-bottom:16px}
+.login input{width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;margin-bottom:10px}
+.login button{width:100%;background:#0d6efd;color:#fff;border:none;padding:11px;border-radius:8px;cursor:pointer;font-weight:600}
+footer{text-align:center;padding:16px;color:#888;font-size:.82rem}
+</style>
+</head>
+<body>
+<nav>
+<span class="brand">🏫 Maktab</span>
+<button class="active" onclick="tab('news',this)">Yangiliklar</button>
+<button onclick="tab('reja',this)">O'quv rejalar</button>
+<button onclick="tab('fan',this)">Fanlar ro'yxati</button>
+<button onclick="tab('oq',this)">O'qituvchilar</button>
+<button onclick="tab('admin',this)">Adminpanel</button>
+</nav>
+<div class="wrap">
+<div class="note">💡 Demo statike e sajtit PHP <strong>my_school</strong> — origjinali kërkon PHP + MySQL (baza <em>maktablar</em>). Të dhënat këtu janë shembull.</div>
+
+<div class="sec active" id="s-news">
+<div class="hero"><h1>Yangiliklar</h1><p>Maktab yangiliklari — so'nggi xabarlar</p></div>
+<div class="grid" id="newsGrid"></div>
+</div>
+
+<div class="sec" id="s-reja">
+<div class="hero"><h1>O'quv rejalar</h1><p>Ish rejalari ro'yxati</p></div>
+<div id="rejaList"></div>
+</div>
+
+<div class="sec" id="s-fan">
+<div class="hero"><h1>Fanlar ro'yxati</h1><p>Fan nomlari sinflar bo'yicha</p></div>
+<table><tr><th>Sinf</th><th>Fan nomi</th></tr><tbody id="fanBody"></tbody></table>
+</div>
+
+<div class="sec" id="s-oq">
+<div class="hero"><h1>O'qituvchilar ro'yxati</h1><p>Malumot</p></div>
+<table><tr><th>Ism</th><th>Familiya</th><th>Fan</th><th>Email</th></tr><tbody id="oqBody"></tbody></table>
+</div>
+
+<div class="sec" id="s-admin">
+<div class="login">
+<h3>🔐 Adminpanel</h3>
+<input id="u" placeholder="Login">
+<input id="p" type="password" placeholder="Parol">
+<button onclick="login()">Kirish</button>
+<p id="msg" style="margin-top:10px;font-size:.85rem;text-align:center"></p>
+</div>
+</div>
+</div>
+<footer>Krijuar nga <strong>Erion Nezha</strong> — © 2026</footer>
+<script>
+const NEWS=[
+["Yangi o'quv yili boshlandi","2026-09-01","Maktabimizda 2026/2027 o'quv yili tantanali boshlandi. Barcha o'quvchilarga omad!"],
+["Olimpiada g'oliblari","2026-08-20","Fan olimpiadasining viloyat bosqichida 3 nafar o'quvchimiz g'olib bo'ldi."],
+["Sport musobaqasi","2026-08-12","Maktablararo futbol musobaqasida jamoamiz 2-o'rinni egalladi."]];
+const REJA=["1-chorak: dars jadvalini tasdiqlash","O'qituvchilar malakasini oshirish rejasi","Ota-onalar majlisi — oktyabr","Fan to'garaklari ro'yxatini yangilash"];
+const FAN=[["5-sinf","Matematika"],["5-sinf","Ona tili"],["6-sinf","Ingliz tili"],["7-sinf","Fizika"],["8-sinf","Kimyo"],["9-sinf","Informatika"]];
+const OQ=[["Dilnoza","Karimova","Matematika","d.karimova@maktab.uz"],["Jasur","Toshpo'latov","Fizika","j.toshpolatov@maktab.uz"],["Malika","Yusupova","Ingliz tili","m.yusupova@maktab.uz"],["Otabek","Rahimov","Informatika","o.rahimov@maktab.uz"]];
+document.getElementById('newsGrid').innerHTML=NEWS.map(n=>`<div class="news"><div class="body"><span class="tag">${n[1]}</span><h3>${n[0]}</h3><p>${n[2]}</p></div></div>`).join('');
+document.getElementById('rejaList').innerHTML=REJA.map(r=>`<div class="card"><h3>📋 Reja</h3><p>${r}</p></div>`).join('');
+document.getElementById('fanBody').innerHTML=FAN.map(f=>`<tr><td>${f[0]}</td><td>${f[1]}</td></tr>`).join('');
+document.getElementById('oqBody').innerHTML=OQ.map(o=>`<tr><td>${o[0]}</td><td>${o[1]}</td><td>${o[2]}</td><td>${o[3]}</td></tr>`).join('');
+function tab(id,btn){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));document.getElementById('s-'+id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');window.scrollTo(0,0);}
+function login(){document.getElementById('msg').textContent='Demo rejimi: admin panel PHP + MySQL talab qiladi.';document.getElementById('msg').style.color='#0d6efd';}
+</script>
+</body>
+</html>
